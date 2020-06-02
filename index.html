@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;800&display=swap" rel="stylesheet">
+  <title>Clockworks</title>
+</head>
+<body>
+  <h1 id="header">Clockworks</h1>
+
+  <section id="controls">
+    <div class="input-group">
+      <label for="minutes-input">Minutes</label>
+      <input type="number" id="minutes-input" placeholder="0" max="480" min="0">
+    </div>
+
+    <div class="input-group">
+      <label for="seconds-input">Seconds</label>
+      <input type="number" id="seconds-input" placeholder="0" max="59" min="0" step="5">
+    </div>
+
+    <button type="button" id="start-btn">Start</button>
+    <button type="button" id="pause-btn" disabled>Pause</button>
+    <button type="button" id="stop-btn" disabled>Stop</button>
+  </section>
+
+  <h2><span id="minutes">0</span> : <span id="seconds">00</span></h2>
+
+  <script src="main.js"></script>
+</body>
+</html>
