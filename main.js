@@ -22,7 +22,30 @@ const soundAlarm = () => {
 const updateValue = ((key, value) => {
   if (value < 0) value = 0;
   console.log('Positive Numbers');
+
   if (key === 'seconds') {
     if (value < 10) value = '0' + value;
   }
-})
+
+  let keySelect = document.getElementById(key);
+
+  keySelect.innerHTML = value || 0
+  timerObj[key] = value;
+  console.log(keySelect);
+  console.log('mins', timerObj.minutes);
+  console.log('secs', timerObj.seconds);
+});
+
+
+(function detectChanges(key) {
+  let input = document.getElementById(`${key}-input`);
+
+  input.addEventListener('change', () => {
+    updateValue(key, input.value);
+  })
+
+  input.addEventListener('keyup', () => {
+    updateValue(key, input.value);
+  })
+  return arguments.callee;
+})('minutes')('seconds');
