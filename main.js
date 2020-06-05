@@ -49,3 +49,37 @@ const updateValue = ((key, value) => {
   })
   return arguments.callee;
 })('minutes')('seconds');
+
+let start = document.getElementById('start-btn');
+let pause = document.getElementById('pause-btn');
+let stopBtn = document.getElementById('stop-btn');
+
+const startTimer = () => {
+  buttonManager(['start', false], ['pause', true], ['stop', true]);
+};
+
+const pauseTimer = () => {
+  buttonManager(['start', true], ['pause', false], ['stop', true]);
+};
+
+const stopTimer = () => {
+  buttonManager(['start', true], ['pause', false], ['stop', false]);
+};
+
+
+const buttonManager = (...buttons) => {
+  for (let i = 0; i < buttons.length; i++) {
+    let button = buttons[i][0] + '-btn';
+    if (buttons[i][1]) {
+      document.getElementById(button).removeAttribute('disabled');
+      console.log(document.getElementById(button));
+    } else {
+      document.getElementById(button).setAttribute('disabled', '');
+      console.log(document.getElementById(button));
+    }
+  }
+};
+
+start.addEventListener('click', startTimer);
+pause.addEventListener('click', pauseTimer);
+stopBtn.addEventListener('click', stopTimer);

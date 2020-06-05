@@ -55,11 +55,11 @@ button {
 }
 
 button:disabled {
-  opacity: .2;
+  opacity: .3;
 }
 
 button:hover {
-  opacity: .5;
+  opacity: .7;
 }
 
 h2 {
