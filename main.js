@@ -31,9 +31,6 @@ const updateValue = ((key, value) => {
 
   keySelect.innerHTML = value || 0
   timerObj[key] = value;
-  console.log(keySelect);
-  console.log('mins', timerObj.minutes);
-  console.log('secs', timerObj.seconds);
 });
 
 
@@ -56,6 +53,7 @@ let stopBtn = document.getElementById('stop-btn');
 
 const startTimer = () => {
   buttonManager(['start', false], ['pause', true], ['stop', true]);
+  freezeInputs();
 };
 
 const pauseTimer = () => {
@@ -64,6 +62,7 @@ const pauseTimer = () => {
 
 const stopTimer = () => {
   buttonManager(['start', true], ['pause', false], ['stop', false]);
+  unfreezeInputs();
 };
 
 
@@ -72,10 +71,8 @@ const buttonManager = (...buttons) => {
     let button = buttons[i][0] + '-btn';
     if (buttons[i][1]) {
       document.getElementById(button).removeAttribute('disabled');
-      console.log(document.getElementById(button));
     } else {
       document.getElementById(button).setAttribute('disabled', '');
-      console.log(document.getElementById(button));
     }
   }
 };
@@ -83,3 +80,21 @@ const buttonManager = (...buttons) => {
 start.addEventListener('click', startTimer);
 pause.addEventListener('click', pauseTimer);
 stopBtn.addEventListener('click', stopTimer);
+
+const freezeInputs = () => {
+  let mins = document.getElementById('minutes-input');
+  let secs = document.getElementById('seconds-input');
+  console.log(mins);
+
+  mins.setAttribute('disabled', '');
+  secs.setAttribute('disabled', '');
+}
+
+const unfreezeInputs = () => {
+  let mins = document.getElementById('minutes-input');
+  let secs = document.getElementById('seconds-input');
+  console.log(mins);
+
+  mins.removeAttribute('disabled');
+  secs.removeAttribute('disabled');
+}
