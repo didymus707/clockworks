@@ -21,8 +21,6 @@ const soundAlarm = () => {
 
 const updateValue = ((key, value) => {
   if (value < 0) value = 0;
-  console.log('Positive Numbers');
-
   if (key === 'seconds') {
     if (value < 10) value = '0' + value;
   }
@@ -54,15 +52,61 @@ let stopBtn = document.getElementById('stop-btn');
 const startTimer = () => {
   buttonManager(['start', false], ['pause', true], ['stop', true]);
   freezeInputs();
+
+  // trying to fix the bugs
+  timerObj.timerId = setInterval(() => {
+    timerObj.seconds--;
+    if (timerObj.minutes === 0 && timerObj.seconds < 0) {
+      let start = document.getElementById('start-btn');
+      start.addEventListener('click', (event)=> {
+        event.preventDefault();
+      });
+      console.log('This is the functioning block');
+    }
+
+    else if (timerObj.seconds < 0 ) {
+      if (timerObj.minutes === 0) {
+        console.log('Sound Alarm');
+        soundAlarm();
+        return stopTimer();
+      } timerObj.seconds = 59;
+      timerObj.minutes--;
+    }
+    updateValue('minutes', timerObj.minutes);
+    updateValue('seconds', timerObj.seconds);
+
+  }, 1000);
 };
+
+// Jesse Caine's Solution
+//   timerObj.timerId = setInterval(() => {
+//     timerObj.seconds--;
+//     if (timerObj.seconds < 0) {
+//       if (timerObj.minutes === 0) {
+//         console.log('Sound Alarm');
+//         soundAlarm();
+//         return stopTimer();
+//       } timerObj.seconds = 59;
+//       timerObj.minutes--;
+//     }
+//     updateValue('minutes', timerObj.minutes);
+//     updateValue('seconds', timerObj.seconds);
+
+//   }, 1000);
+// };
 
 const pauseTimer = () => {
   buttonManager(['start', true], ['pause', false], ['stop', true]);
+  clearInterval(timerObj.timerId);
 };
 
 const stopTimer = () => {
+  clearInterval(timerObj.timerId);
   buttonManager(['start', true], ['pause', false], ['stop', false]);
   unfreezeInputs();
+  updateValue('minutes', document.getElementById('minutes-input').value);
+  let seconds = document.getElementById('seconds-input').value || 0;
+  updateValue('seconds', seconds);
 };
 
 
@@ -84,7 +128,6 @@ stopBtn.addEventListener('click', stopTimer);
 const freezeInputs = () => {
   let mins = document.getElementById('minutes-input');
   let secs = document.getElementById('seconds-input');
-  console.log(mins);
 
   mins.setAttribute('disabled', '');
   secs.setAttribute('disabled', '');
@@ -93,7 +136,6 @@ const freezeInputs = () => {
 const unfreezeInputs = () => {
   let mins = document.getElementById('minutes-input');
   let secs = document.getElementById('seconds-input');
-  console.log(mins);
 
   mins.removeAttribute('disabled');
   secs.removeAttribute('disabled');
